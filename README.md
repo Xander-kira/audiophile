@@ -121,3 +121,19 @@ audiophile/
 ## License
 
 MIT
+
+
+## Setup
+- Node 18+
+- `npm i`
+- `cp .env.local.example .env.local` and set:
+  - NEXT_PUBLIC_CONVEX_URL=<your dev convex url> (Dev)
+- `npx convex dev` (in one terminal)
+- `npm run dev` (in another)
+
+## Production
+- `npx convex deploy` → copy Production URL
+- On Vercel set:
+  - NEXT_PUBLIC_CONVEX_URL=<Convex Prod URL>
+  - NEXT_PUBLIC_SITE_URL=<your Vercel domain>
+
