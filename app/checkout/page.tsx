@@ -71,8 +71,8 @@ export default function CheckoutPage() {
       
       setOrderId(res.orderId as Id<"orders">);
       setOpen(true);
-    } catch (e: any) {
-      setErr(e?.message || "Something went wrong");
+    } catch (e: unknown) {
+      setErr(e instanceof Error ? e.message : "Something went wrong");
     } finally {
       setBusy(false);
     }
