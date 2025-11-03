@@ -1,36 +1,123 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Audiophile E-Commerce
 
-## Getting Started
+A modern e-commerce platform for audio equipment built with Next.js 16, Convex, and Tailwind CSS.
 
-First, run the development server:
+## Features
+
+- 🎧 Product catalog for headphones, speakers, and earphones
+- 🛒 Shopping cart with localStorage persistence
+- 📧 Order confirmation emails via Resend
+- 💳 Complete checkout flow with order tracking
+- 🎨 Responsive design with Tailwind CSS v4
+- 🔒 Form validation with Zod
+
+## Setup
+
+### Prerequisites
+
+- Node.js 18+
+- npm or yarn
+
+### Installation
+
+1. Clone the repository and install dependencies:
+
+```bash
+npm install
+```
+
+2. Set up environment variables:
+   Create a `.env.local` file in the root directory:
+
+```bash
+NEXT_PUBLIC_CONVEX_URL=<your-convex-dev-url>
+NEXT_PUBLIC_SITE_URL=http://localhost:3000
+```
+
+3. Set up Convex:
+
+```bash
+# Start Convex in development mode (keep this running)
+npx convex dev
+```
+
+4. Configure Resend for emails (in Convex dashboard or CLI):
+
+```bash
+npx convex env set RESEND_API_KEY <your-resend-api-key>
+npx convex env set RESEND_FROM "Audiophile <orders@your-domain.com>"
+```
+
+5. Start the development server (in a new terminal):
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+6. Open [http://localhost:3000](http://localhost:3000) in your browser
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Production Deployment
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+### 1. Deploy Convex Backend
 
-## Learn More
+```bash
+npx convex deploy
+```
 
-To learn more about Next.js, take a look at the following resources:
+Copy the Production URL (e.g., `https://xxx.convex.cloud`)
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+### 2. Deploy to Vercel
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+Set the following environment variables in Vercel:
 
-## Deploy on Vercel
+- `NEXT_PUBLIC_CONVEX_URL` = Your Convex Production URL
+- `NEXT_PUBLIC_SITE_URL` = Your Vercel domain (e.g., `https://your-app.vercel.app`)
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+The Resend API key is already set in Convex, so you don't need to add it to Vercel.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+### 3. Deploy
+
+```bash
+vercel --prod
+```
+
+## Scripts
+
+- `npm run dev` - Start development server
+- `npm run build` - Build for production
+- `npm run start` - Start production server
+- `npm run lint` - Run ESLint
+- `npm run export:email` - Generate sample email HTML
+
+## Tech Stack
+
+- **Frontend**: Next.js 16, React 19, TypeScript
+- **Backend**: Convex (serverless backend)
+- **Styling**: Tailwind CSS v4
+- **Email**: Resend
+- **Validation**: Zod
+- **State**: React Context API
+
+## Project Structure
+
+```
+audiophile/
+├── app/                    # Next.js app directory
+│   ├── (category pages)    # Headphones, speakers, earphones
+│   ├── checkout/           # Checkout flow
+│   ├── order/              # Order detail pages
+│   └── [slug]/             # Product detail pages
+├── components/             # React components
+│   ├── cards/              # Product & category cards
+│   ├── cart/               # Shopping cart
+│   └── products/           # Product-related components
+├── convex/                 # Convex backend
+│   ├── orders.ts           # Order mutations/queries
+│   └── _utils/             # Utility functions
+└── lib/                    # Shared utilities
+    └── data/               # Product data
+```
+
+## License
+
+MIT
